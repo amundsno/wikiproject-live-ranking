@@ -1,4 +1,11 @@
 services:
+  wikistream-subscriber:
+    container_name: wikistream-subscriber
+    build: ./wikistream-subscriber
+    depends_on:
+      kafka:
+        condition: service_healthy
+  
   # Singular Kafka broker and controller
   kafka:
     image: apache/kafka:4.0.0
