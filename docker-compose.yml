@@ -1,0 +1,44 @@
+services:
+  # Singular Kafka broker and controller
+  kafka:
+    image: apache/kafka:4.0.0
+    container_name: kafka
+    ports:  
+      - "9092:9092"
+    environment:
+      # Port 9093 used within Docker network
+      KAFKA_LISTENERS: >-
+        CONTROLLER://kafka:9091,
+        EXTERNAL://:9092,
+        DOCKER://kafka:9093 
+      KAFKA_ADVERTISED_LISTENERS: >-
+        EXTERNAL://localhost:9092,
+        DOCKER://kafka:9093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: >-
+        CONTROLLER:PLAINTEXT,
+        EXTERNAL:PLAINTEXT,
+        DOCKER:PLAINTEXT
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER 
+      KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER
+      KAFKA_NODE_ID: 1
+      CLUSTER_ID: EYunGpaGT4u1iThtQKjVQA 
+      KAFKA_PROCESS_ROLES: broker, controller 
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9091 
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    healthcheck:
+      test: ["CMD", "/opt/kafka/bin/kafka-topics.sh", "--list", "--bootstrap-server", "localhost:9092"]
+      interval: 5s
+      retries: 5
+  
+  # Convenient UI for managing Kafka
+  kafka-ui:
+    container_name: kafka-ui
+    image: ghcr.io/kafbat/kafka-ui:latest
+    ports:
+      - 9090:8080
+    environment:
+      DYNAMIC_CONFIG_ENABLED: 'true'
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9093
+    depends_on:
+      - kafka
