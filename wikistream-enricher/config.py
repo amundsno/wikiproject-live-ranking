@@ -1,0 +1,6 @@
+BOOTSTRAP_SERVER='kafka:9093'
+INPUT_TOPIC='wiki-stream'
+OUTPUT_TOPIC='wiki-stream-enriched'
+DLQ_TOPIC='wiki-stream-dlq'
+GROUP_ID='wiki-stream-enricher'
+WIKIPEDIA_API_URL='https://en.wikipedia.org/w/api.php'

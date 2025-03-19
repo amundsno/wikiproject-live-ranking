@@ -1,4 +1,13 @@
 services:
+  wikistream-enricher:
+    container_name: wikistream-enricher
+    build: ./wikistream-enricher
+    depends_on:
+      wikistream-subscriber:
+        condition: service_started
+      kafka:
+        condition: service_healthy
+
   wikistream-subscriber:
     container_name: wikistream-subscriber
     build: ./wikistream-subscriber
