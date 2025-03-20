@@ -1,4 +1,13 @@
 services:
+  sse-streamer:
+    container_name: sse-streamer
+    build: ./sse-streamer
+    depends_on:
+      wikistream-enricher:
+        condition: service_started
+      kafka:
+        condition: service_healthy
+
   wikistream-enricher:
     container_name: wikistream-enricher
     build: ./wikistream-enricher
