@@ -1,0 +1,84 @@
+:root{
+    --text: #030508;
+    --background: #f6f8fb;
+    --primary: #576eb8;
+    --shade-light: #dbe0f0;
+}
+
+body {
+    color: var(--text);
+    background-color: var(--background);
+    
+    font-family: "Open Sans", sans-serif;  
+    font-size: 16px;
+    line-height: 1.5;
+    
+}
+
+h1 {
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 1em;    
+}
+
+table {
+    text-align: left;
+    border-collapse: collapse;
+    
+    margin: 0 auto;
+    width: max(1200px, 90%);
+    table-layout: fixed;
+
+    overflow: scroll;
+}
+
+thead {
+    color: var(--background);
+    background-color: var(--primary);
+    position: sticky;
+    top:0;
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+#col-ranking {
+    width: 8ch;
+}
+
+#col-count {
+    width: 6ch;
+}
+
+#col-project {
+    width: 40ch;
+}
+
+#col-bar {
+    width: 30ch;
+}
+
+.bar {
+    background-color: var(--primary);
+    height: 1em;
+    border-radius: 1em;
+}
+
+.align-right {
+    text-align: right;
+}
+
+th:first-of-type {
+    width: 5em;
+}
+
+tbody tr:nth-child(odd){
+    background-color: var(--shade-light);
+}
+
+tbody tr td:first-child {
+    font-weight: bold;
+    padding-right: 1em;
+}
