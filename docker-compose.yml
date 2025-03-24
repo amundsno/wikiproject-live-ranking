@@ -1,14 +1,14 @@
 services:
   nginx:
-    image: nginx:1.27.4
     container_name: nginx
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./nginx/src:/usr/share/nginx/html:ro
+    build: ./nginx
     ports:
       - 8080:80
     depends_on:
       - sse-streamer
+    # Uncomment to serve static files from mounted volume directly.
+    # volumes:
+      # - ./nginx/src:/usr/share/nginx/html:ro
 
   sse-streamer:
     container_name: sse-streamer
